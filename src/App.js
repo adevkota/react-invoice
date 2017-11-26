@@ -246,11 +246,12 @@ class Metadata extends Component {
     )
   }
 }
-const TD = (props) => <td><input 
+const TD = (props) => <td>
+    {props.children}
+    <input 
     onChange={(e) => props.update(props.name, e.target.value, props.index)} 
     value={props.val}
-    style={{width:'100%', ...props.style}}/>
-    {props.children}
-    </td>
+    style={{width:'100%', ...props.style, textAlign: 'inherit'}}/>
+  </td>
 
 export default App;

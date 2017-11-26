@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Address from './Address'
-import Balance from './Balance'
-import InvoiceItems from './InvoiceItems'
-import Metadata from './Metadata'
+import Address from '../Components/Address'
+import Balance from '../Components/Balance'
+import InvoiceItems from '../Components/InvoiceItems'
+import Metadata from '../Components/Metadata'
 
 class Article extends Component {
 	constructor() {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Header from './Header'
+import Header from '../Components/Header'
 import Article from './Article'
-import Aside from './Aside'
+import Aside from '../Components/Aside'
 
 
 class App extends Component {

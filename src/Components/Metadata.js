@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import TD from './td';
 class Metadata extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dueDateHidden : false
+		}
+    this.hideDueDate = this.hideDueDate.bind(this);
+  }
+
+  hideDueDate() {
+    this.setState({dueDateHidden: true});
+  }
   render() {
     return(
       <table className="meta">
@@ -18,10 +29,14 @@ class Metadata extends Component {
             name="invoiceDate"
             val={this.props.invoiceDate}></TD>
         </tr>
-        <tr>
-          <th><span contentEditable="">Due Date</span></th>
+        <tr style={this.state.dueDateHidden? {display:'none'}:{}}>
+          <th>
+            <a className="cut" onClick={(e) => this.hideDueDate(e)}>-</a>
+            <span contentEditable="">Due Date</span>
+          </th>
           <TD style={{fontWeight: 600}}
-            update={this.props.update} 
+            update={this.props.update}
+            name="dueDate"
             val={this.props.dueDate}></TD>
       </tr>
       <tr>

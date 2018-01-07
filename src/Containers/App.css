@@ -74,9 +74,7 @@ td { border-color: #DDD; }
 html { font: 16px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
 html { background: #999; cursor: default; }
 
-body { box-sizing: border-box; height: 11in; margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; }
-body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); }
-
+body { box-sizing: border-box;  }
 /* header */
 
 header { margin: 0 0 3em; }
@@ -165,12 +163,26 @@ aside h1 { border-color: #999; border-bottom-style: solid; }
 
 tr:hover .cut { opacity: 1; }
 
-@media print {
-	* { -webkit-print-color-adjust: exact; }
-	html { background: none; padding: 0; }
-	body { box-shadow: none; margin: 0; }
-	span:empty { display: none; }
-	.add, .cut { display: none; }
-}
+/*TODO: figure out where the style above this line goes*/
+/*app stuff*/
 
-@page { margin: 0; }
+#invoice-wrapper{
+	height: 11in; 
+	margin: 0 auto; 
+	overflow: hidden; 
+	padding: 0.5in; 
+	width: 8.5in;
+	background: #FFF; 
+	border-radius: 1px; 
+	box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+	box-sizing: border-box;
+ }
+
+ /* #controls{
+	 background: #FFF;
+	 border-radius: 1px;
+	 padding:20px;
+	 width: 8.5in;
+	 margin: 10px auto;
+	 box-sizing: border-box;
+ } */

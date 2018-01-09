@@ -10,7 +10,7 @@ body {
 	html { background: none; padding: 0; }
 	body, #invoice-wrapper { box-shadow: none; margin: 0; }
 	span:empty { display: none; }
-	.add, .cut, #controls { display: none; }
+	.add, .cut, .Control { display: none; }
 }
 
 @page { margin: 0; }

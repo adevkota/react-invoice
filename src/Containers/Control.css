@@ -1,19 +1,19 @@
 .Control{
-   background: #FFF;
-   border-radius: 1px;
-   padding:20px;
-   width: 8.5in;
-   margin: 10px auto;
-   box-sizing: border-box; 
-   line-height: 30px;
+	background: #FFF;
+	border-radius: 1px;
+	padding:20px;
+	width: 8.5in;
+	margin: 10px auto;
+	box-sizing: border-box; 
+	line-height: 30px;
 }
 .Control input{
-   border: 1px solid #DDD;
-   border-radius: 1px;
-   margin: 0 10px;  
+	border: 1px solid #DDD;
+	border-radius: 1px;
+	margin: 0 10px;  
 }
 
 .Control button {
-   border-radius: 1px;
-   padding:0 5px;
+	border-radius: 1px;
+	padding:0 5px;
 }

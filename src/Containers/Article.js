@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Address from '../Components/Address'
 import Balance from '../Components/Balance'
 import InvoiceItems from '../Components/InvoiceItems'
-import Metadata from '../Components/Metadata'
+import Metadata from '../Components/Metadata';
+import {getUserInfo, firebaseAuth} from '../Services/firebase.service';
 
 class Article extends Component {
 	constructor() {
@@ -16,7 +17,10 @@ class Article extends Component {
 			items:[
 				{name: '', weekEnding: '', rate: '', hours: ''}
 			],
-			amountPaid: 0
+			amountPaid: 0,
+			userInfo: {
+				clients: [{}]
+			}
 		}
 
 		this.update = this.update.bind(this);
@@ -27,6 +31,34 @@ class Article extends Component {
 
 	addItems() {
 		this.setState({items: [...this.state.items, {name:'', weekEnding:'', rate:'', hours:0}]})
+	}
+
+	componentWillMount() {
+		firebaseAuth().onAuthStateChanged(user => {
+			if(!!user) {
+				getUserInfo(user.uid)
+				.then(doc => {
+					this.setState( {
+						userInfo: doc.exists? doc.data(): null
+					});
+				});
+			} else {
+				this.setState({
+					userInfo: {
+						clients: [
+							{
+								'address1': 'Vendor address',
+								'name': 'Vendor Name',
+								'city': 'City',
+								'state': 'State',
+								'zip': 'zip'
+							}
+						]
+					}
+				});
+			}
+
+		})
 	}
 
 	deleteItem(index) {
@@ -58,13 +90,14 @@ class Article extends Component {
 		}
 	}
 	render() {
+		let client = this.state.userInfo.clients[0];
 		return (
 			<article>
 				<Address>
 					<p style={{fontSize: 11}}>Bill To:</p>
-					<p style={{fontSize: 13, fontWeight:600}}>Vendor Name</p>
-					<p style={{fontSize: 14, fontWeight:400}}>Vendor address</p>
-					<p style={{fontSize: 14, fontWeight:400}}>City, state zip</p>
+					<p style={{fontSize: 13, fontWeight:600}}>{client.name}</p>
+					<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
+					<p style={{fontSize: 14, fontWeight:400}}>{`${client.city}, ${client.state} ${client.zip}`}</p>
 				</Address>
 				<Metadata {...this.state} update={this.update}/>
 				<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>

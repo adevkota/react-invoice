@@ -70,6 +70,7 @@ class Control extends Component {
 					/>
 				<input
 					name='password'
+					type='password'
 					value={this.state.password}
 					onChange={(e)=> this.updateAuthInfo(e.target.name, e.target.value)} 
 					/>

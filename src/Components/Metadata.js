@@ -18,9 +18,17 @@ class Metadata extends Component {
       <tbody>
         <tr>
           <th><span contentEditable="">Invoice #</span></th>
-          <TD update={this.props.update}
+          <TD
+            style={{width: `calc(100% - 50px)`}} 
+            update={this.props.update}
+            prefix={this.props.prefix}
             val={this.props.invoiceNum}
-            name="invoiceNum"></TD>
+            name="invoiceNum">
+               <span className="prefix"
+                 style={{ height: `15px`,
+                 lineHeight :`15px`}}
+                contentEditable="">{this.props.prefix}-</span>
+            </TD>
         </tr>
       
         <tr>
@@ -42,7 +50,7 @@ class Metadata extends Component {
       <tr>
         <th><span contentEditable="">Amount Due</span></th>
         <td>
-          <span id="prefix" contentEditable="">$</span>
+          <span className="prefix" contentEditable="">$</span>
           <span style={{fontWeight: 600}}>{this.props.amountDue}</span></td>
       </tr>
     </tbody></table>

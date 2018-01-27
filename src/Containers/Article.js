@@ -91,6 +91,8 @@ class Article extends Component {
 	}
 	render() {
 		let client = this.state.userInfo.clients[0];
+		let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
+		console.log(prefix);
 		return (
 			<article>
 				<Address>
@@ -99,7 +101,7 @@ class Article extends Component {
 					<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
 					<p style={{fontSize: 14, fontWeight:400}}>{`${client.city}, ${client.state} ${client.zip}`}</p>
 				</Address>
-				<Metadata {...this.state} update={this.update}/>
+				<Metadata {...this.state} prefix={prefix} update={this.update}/>
 				<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
 				<a className="add" onClick={this.addItems}>+</a>
 				<Balance {...this.state} update={this.update} />

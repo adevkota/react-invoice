@@ -5,6 +5,7 @@ require("firebase/firestore");
 
 let db;
 const localStorageKey = 'me.adevkota.react-invoice';
+let data;
 
 export const firebaseAuth = firebase.auth;
 export const firebaseInit = () => {
@@ -39,6 +40,9 @@ export const firebaseLogin = (email, pw) => {
 export const firebaseLogout = () => {
    firebaseAuth()
 	.signOut()
+	.then(() => {
+		data = undefined;
+	})
 	.catch((error) => {
 	   console.log(error);
 	})
@@ -48,7 +52,11 @@ export const isAuthenticated = () => {
    return !!firebaseAuth().currentUser || !!localStorage.getItem(localStorageKey);
 }
 
-export const getUserInfo = (id) => {
-	return db.collection('users').doc(id).get();
+export const  getUserInfo = async (id) => {
+	if(!data) {
+		data =  await db.collection('users').doc(id).get();
+		// window.localStorage.setItem(localStorageKey, JSON.stringify(temp));
+	}
+	return data;
 }
 	

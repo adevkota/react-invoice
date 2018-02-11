@@ -6,8 +6,8 @@ import Metadata from '../Components/Metadata';
 import {getUserInfo, firebaseAuth} from '../Services/firebase.service';
 
 class Article extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			invoiceNum: 1,
 			invoiceDate: 'Jan 4, 2015',
@@ -92,7 +92,7 @@ class Article extends Component {
 	render() {
 		let client = this.state.userInfo.clients[0];
 		let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
-		console.log(prefix);
+
 		return (
 			<article>
 				<Address>
@@ -101,7 +101,7 @@ class Article extends Component {
 					<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
 					<p style={{fontSize: 14, fontWeight:400}}>{`${client.city}, ${client.state} ${client.zip}`}</p>
 				</Address>
-				<Metadata {...this.state} prefix={prefix} update={this.update}/>
+				<Metadata {...this.state} prefix={prefix} hideDueDate={client.hideDueDate} update={this.update}/>
 				<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
 				<a className="add" onClick={this.addItems}>+</a>
 				<Balance {...this.state} update={this.update} />

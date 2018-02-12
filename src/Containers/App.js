@@ -11,9 +11,18 @@ import {firebaseInit} from '../Services/firebase.service';
 class App extends Component {
 	constructor(props) {
 		super(props);
-		firebaseInit();
+		this.state = {
+			
+		}
+		firebaseInit().then(() => {
+			this.setState({firebaseInitialized: true})
+		});
 	}
+
 	render() {
+		if(!this.state.firebaseInitialized) {
+			return null;
+		}
 		return (
 			<div>
 				<Control/>

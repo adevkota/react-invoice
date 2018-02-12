@@ -18,7 +18,7 @@ class Control extends Component {
 		this.renderUnknownAuthentication = this.renderUnknownAuthentication.bind(this);
 	}
 	
-	componentWillMount() {
+	componentDidMount() {
 		firebaseAuth().onAuthStateChanged(user => {
 			if(!!user) {
 				getUserInfo(user.uid)

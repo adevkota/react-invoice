@@ -16,7 +16,7 @@ class Header extends Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		firebaseAuth().onAuthStateChanged(user => {
 			if(!!user) {
 				getUserInfo(user.uid)

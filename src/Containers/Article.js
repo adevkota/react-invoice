@@ -33,7 +33,7 @@ class Article extends Component {
 		this.setState({items: [...this.state.items, {name:'', weekEnding:'', rate:'', hours:0}]})
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		firebaseAuth().onAuthStateChanged(user => {
 			if(!!user) {
 				getUserInfo(user.uid)

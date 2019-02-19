@@ -1,10 +1,17 @@
 {
-  "main.css": "static/css/main.cbbf4dfb.css",
-  "main.css.map": "static/css/main.cbbf4dfb.css.map",
-  "main.js": "static/js/main.1e174aee.js",
-  "main.js.map": "static/js/main.1e174aee.js.map",
-  "static/js/0.d81330c5.chunk.js": "static/js/0.d81330c5.chunk.js",
-  "static/js/0.d81330c5.chunk.js.map": "static/js/0.d81330c5.chunk.js.map",
-  "static/js/1.c6409c7a.chunk.js": "static/js/1.c6409c7a.chunk.js",
-  "static/js/1.c6409c7a.chunk.js.map": "static/js/1.c6409c7a.chunk.js.map"
+  "main.css": "/react-invoice/static/css/main.fe93021e.chunk.css",
+  "main.js": "/react-invoice/static/js/main.1affc9fa.chunk.js",
+  "main.js.map": "/react-invoice/static/js/main.1affc9fa.chunk.js.map",
+  "runtime~main.js": "/react-invoice/static/js/runtime~main.9d861f65.js",
+  "runtime~main.js.map": "/react-invoice/static/js/runtime~main.9d861f65.js.map",
+  "static/js/2.8ae9494e.chunk.js": "/react-invoice/static/js/2.8ae9494e.chunk.js",
+  "static/js/2.8ae9494e.chunk.js.map": "/react-invoice/static/js/2.8ae9494e.chunk.js.map",
+  "static/js/3.b6971de8.chunk.js": "/react-invoice/static/js/3.b6971de8.chunk.js",
+  "static/js/3.b6971de8.chunk.js.map": "/react-invoice/static/js/3.b6971de8.chunk.js.map",
+  "static/js/4.ea380610.chunk.js": "/react-invoice/static/js/4.ea380610.chunk.js",
+  "static/js/4.ea380610.chunk.js.map": "/react-invoice/static/js/4.ea380610.chunk.js.map",
+  "index.html": "/react-invoice/index.html",
+  "precache-manifest.dbbc2a10806b56145ddc734f3ce6a9b6.js": "/react-invoice/precache-manifest.dbbc2a10806b56145ddc734f3ce6a9b6.js",
+  "service-worker.js": "/react-invoice/service-worker.js",
+  "static/css/main.fe93021e.chunk.css.map": "/react-invoice/static/css/main.fe93021e.chunk.css.map"
 }

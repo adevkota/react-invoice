@@ -45,7 +45,7 @@ class Metadata extends Component {
         </tr>
         <tr style={this.state.hideDueDate? {display:'none'}:{}}>
           <th>
-            <a className="cut" onClick={(e) => this.hideDueDate(e)}>-</a>
+            <button className="cut" onClick={(e) => this.hideDueDate(e)}>-</button>
             <span contentEditable="">Due Date</span>
           </th>
           <TD style={{fontWeight: 600}}

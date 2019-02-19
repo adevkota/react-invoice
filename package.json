@@ -1,13 +1,13 @@
 {
 	"name": "react-invoice",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"private": true,
 	"dependencies": {
-		"firebase": "4.8.1",
-		"gh-pages": "1.1.0",
-		"react": "16.1.1",
-		"react-dom": "16.1.1",
-		"react-scripts": "1.0.17"
+		"firebase": "5.8.0",
+		"gh-pages": "2.0.1",
+		"react": "16.8.2",
+		"react-dom": "16.8.2",
+		"react-scripts": "2.1.5"
 	},
 	"scripts": {
 		"predeploy": "npm run build",
@@ -17,5 +17,11 @@
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject"
 	},
-	"homepage": "https://adevkota.me/react-invoice/"
+	"homepage": "https://adevkota.me/react-invoice/",
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }

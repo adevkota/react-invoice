@@ -1,7 +1,4 @@
 const firebase = require("firebase/app");
-// Required for side-effects
-// require("firebase/auth");
-// require("firebase/firestore");
 
 let db;
 const localStorageKey = 'me.adevkota.react-invoice';
@@ -9,14 +6,14 @@ let data;
 let fbAuth;
 
 export const firebaseAuth = () => {
-	return fbAuth();
+	return fbAuth;
 }
 export const firebaseInit = () => {
 	return Promise.all([
 		import('@firebase/auth'),
 		import('@firebase/firestore')
 	])
-	.then((auth, firestore) => {
+	.then(([auth, firestore]) => {
 		let config = {
 			apiKey: "AIzaSyAiqxhHbuMn3H0HmBR-BdDWckuCbX77o-w",
 			authDomain: "invoice-aa086.firebaseapp.com",
@@ -27,7 +24,7 @@ export const firebaseInit = () => {
 		};
 		firebase.initializeApp(config);
 		db = firebase.firestore();
-		fbAuth = firebase.auth;
+		fbAuth = firebase.auth();
 	})
    // firebaseAuth().onAuthStateChanged(handleAuthStateChange);
 }

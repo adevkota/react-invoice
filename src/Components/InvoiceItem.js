@@ -10,7 +10,7 @@ class InvoiceItem extends Component {
 					update={this.props.update}
 					name="name"
 					index={index}
-					val={item.name}><a className="cut" onClick={(e) => this.props.delete(this.props.index)}>-</a></TD>
+					val={item.name}><button className="cut" onClick={(e) => this.props.delete(this.props.index)}>-</button></TD>
 				<TD 
 					update={this.props.update}
 					name="weekEnding"

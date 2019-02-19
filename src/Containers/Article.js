@@ -27,19 +27,33 @@ class Article extends Component {
 		this.addItems = this.addItems.bind(this);
 		this.updateItems = this.updateItems.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
+		this.getInvoiceItemsFromConsultants = this.getInvoiceItemsFromConsultants.bind(this);
+		this.updatedTotals = this.updatedTotals.bind(this);
 	}
 
 	addItems() {
-		this.setState({items: [...this.state.items, {name:'', weekEnding:'', rate:'', hours:0}]})
+		const items = [
+			...this.state.items, 
+			...this.getInvoiceItemsFromConsultants(this.state.userInfo.clients[0].consultants)
+		];
+		this.setState({
+			items,
+			...this.updatedTotals(items, this.state.amountPaid)
+		})
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		firebaseAuth().onAuthStateChanged(user => {
 			if(!!user) {
 				getUserInfo(user.uid)
 				.then(doc => {
+					const userInfo = doc.exists? doc.data(): null;
+					const items = this.getInvoiceItemsFromConsultants(userInfo.clients? userInfo.clients[0].consultants : null);
+					const totals = this.updatedTotals(items, this.state.amountPaid);
 					this.setState( {
-						userInfo: doc.exists? doc.data(): null
+						userInfo,
+						items,
+						...totals
 					});
 				});
 			} else {
@@ -66,7 +80,34 @@ class Article extends Component {
 		stateCopy.items = stateCopy.items.slice();
 		stateCopy.items[index] = Object.assign({}, stateCopy.items[index]);
 		stateCopy.items.splice(index, 1)
+
+		stateCopy = {
+			...stateCopy,
+			...this.updatedTotals(stateCopy.items, stateCopy.amountPaid)
+		}
 		this.setState(stateCopy)
+	}
+
+	getInvoiceItemsFromConsultants(consultants) {
+		const mapper = {
+			'empty': () => {
+				return [
+					{name: '', weekEnding: '', rate: '', hours: ''}
+				]
+			},
+			'not-empty': (consultants) => {
+				return consultants.map(consultant => {
+					return {
+						name: consultant.name || '',
+						rate: consultant.rate || '',
+						hours: consultant.defaultHours || '',
+						weekEnding: ''
+					};
+				});
+			}
+		};
+
+		return consultants ? mapper['not-empty'](consultants) : mapper['empty'](consultants);
 	}
 	updateItems(key, val, index) {
 		let stateCopy = Object.assign({}, this.state);
@@ -75,10 +116,20 @@ class Article extends Component {
 		stateCopy.items[index][key] = val;
 
 		if(key === "hours" || key === "rate") {
-			stateCopy.total = stateCopy.items.reduce((total, item) => total + (item.rate * item.hours), 0);
-			stateCopy.amountDue = stateCopy.total - stateCopy.amountPaid;
+			stateCopy = {
+				...stateCopy,
+				...this.updatedTotals(stateCopy.items, stateCopy.amountPaid)
+			}
 		}
 		this.setState(stateCopy);
+	}
+
+	updatedTotals(items, amountPaid) {
+		const total = items.reduce((total, item) => total + (item.rate * item.hours), 0);
+		return {
+			total,
+			amountDue: total - amountPaid
+		}
 	}
 
 	update(key, val) {
@@ -103,7 +154,7 @@ class Article extends Component {
 				</Address>
 				<Metadata {...this.state} prefix={prefix} hideDueDate={client.hideDueDate} update={this.update}/>
 				<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
-				<a className="add" onClick={this.addItems}>+</a>
+				<button className="add" onClick={this.addItems}>+</button>
 				<Balance {...this.state} update={this.update} />
 			</article>
 		)

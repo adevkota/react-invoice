@@ -17,7 +17,7 @@ class Aside extends Component {
 		this.state = {...defaultState};
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		firebaseAuth().onAuthStateChanged(user => {
 			if(!!user) {
 				getUserInfo(user.uid)
@@ -37,14 +37,7 @@ class Aside extends Component {
 		})
 	}
 
-	componentDidCatch(error, info) {
-		// Display fallback UI
-		this.setState({ hasError: true });
-	}
 	render() {
-		if(this.state.hasError) {
-			return null;
-		}
 		return(
 			<aside>
 				{//eslint-disable-next-line

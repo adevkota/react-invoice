@@ -33,6 +33,7 @@ class Invoice extends Component {
 		this.deleteItem = this.deleteItem.bind(this);
 		this.getInvoiceItemsFromConsultants = this.getInvoiceItemsFromConsultants.bind(this);
 		this.updatedTotals = this.updatedTotals.bind(this);
+		this.getEndClient = this.getEndClient.bind(this);
 	}
 
 	addItems() {
@@ -69,7 +70,9 @@ class Invoice extends Component {
 								'name': 'Vendor Name',
 								'city': 'City',
 								'state': 'State',
-								'zip': 'zip'
+								'zip': 'zip',
+								'endClient': [{}]
+
 							}
 						],
 						company: [{
@@ -120,6 +123,19 @@ class Invoice extends Component {
 
 		return consultants ? mapper['not-empty'](consultants) : mapper['empty'](consultants);
 	}
+
+	getEndClient() {
+		const defaultEndClient = {
+			name: "Client Name",
+			address1: "Client Address 1",
+			city: "City",
+			state: "State",
+			zip: "Zip"
+		}
+		const endClients = this.state.userInfo.clients[0].endClients;
+		return  endClients && endClients.length ? endClients[0] : defaultEndClient;
+	}
+
 	updateItems(key, val, index) {
 		let stateCopy = Object.assign({}, this.state);
 		stateCopy.items = stateCopy.items.slice();
@@ -170,7 +186,10 @@ class Invoice extends Component {
 					<button className="add" onClick={this.addItems}>+</button>
 					<Balance {...this.state} update={this.update} />
 				</article>
-				<Aside/>
+				<Aside 
+					endClient={this.getEndClient()} 
+					terms={client.terms}
+				/>
 			</div>
 		)
 	}

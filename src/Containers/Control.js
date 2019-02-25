@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {firebaseLogin, firebaseLogout, isAuthenticated, firebaseAuth, getUserInfo} from '../Services/firebase.service';
 import './Control.css'
-
+import { connect } from "react-redux";
+import { loggedIn, loggedOut } from "../store/authentication/actions";
+import { userFetched } from "../store/articles/actions";
 class Control extends Component {
 	constructor(props) {
 		super(props);
@@ -23,16 +25,20 @@ class Control extends Component {
 			if(!!user) {
 				getUserInfo(user.uid)
 				.then(doc => {
+					const userInfo = doc.exists? doc.data(): null
 					this.setState( {
 						authenticated: true,
-						userInfo: doc.exists? doc.data(): null
+						userInfo
 					});
+					this.props.loggedIn();
+					this.props.userFetched(userInfo);
 				});
 			} else {
 				this.setState({
 					authenticated: false,
 					userInfo: null
 				});
+				this.props.loggedOut();
 			}
 
 		})
@@ -100,5 +106,25 @@ class Control extends Component {
 		this.setState({[key]: val});
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		...state
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		loggedIn: () => {
+			dispatch(loggedIn())
+		},
+		loggedOut: () => {
+			dispatch(loggedOut())
+		},
+		userFetched: (userInfo) => {
+			dispatch(userFetched(userInfo))
+		}
+	}
+}
 	
-export default Control;
+export default connect(mapStateToProps, mapDispatchToProps)(Control);

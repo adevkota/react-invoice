@@ -1,0 +1,1 @@
+export const USER_FETCHED = 'articles.USER_FETCHED'

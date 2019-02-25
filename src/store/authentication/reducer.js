@@ -1,5 +1,4 @@
 import * as types from "./actionTypes";
-import { isAuthenticated } from "../../Services/firebase.service";
 const initialState = {
 	isAuthenticated: false
 }
@@ -17,4 +16,8 @@ export default function (state = initialState, action) {
 		default:
 			return state;
 	}
+}
+
+export function getIsAuthenticated(state) {
+	return state.authentication.isAuthenticated;
 }

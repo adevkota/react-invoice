@@ -5,7 +5,10 @@ import InvoiceItems from '../Components/InvoiceItems'
 import Metadata from '../Components/Metadata';
 import {getUserInfo, firebaseAuth} from '../Services/firebase.service';
 
-class Article extends Component {
+import Header from '../Components/Header';
+import Aside from '../Components/Aside';
+
+class Invoice extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,7 +22,8 @@ class Article extends Component {
 			],
 			amountPaid: 0,
 			userInfo: {
-				clients: [{}]
+				clients: [{}],
+				company: [{}]
 			}
 		}
 
@@ -67,7 +71,14 @@ class Article extends Component {
 								'state': 'State',
 								'zip': 'zip'
 							}
-						]
+						],
+						company: [{
+							name: 'Two Way Binding Inc',
+							address1: 'Address line 1',
+							city: 'city',
+							state: 'state',
+							zip: 'zip'
+						}]
 					}
 				});
 			}
@@ -145,20 +156,24 @@ class Article extends Component {
 		let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
 
 		return (
-			<article>
-				<Address>
-					<p style={{fontSize: 11}}>Bill To:</p>
-					<p style={{fontSize: 13, fontWeight:600}}>{client.name}</p>
-					<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
-					<p style={{fontSize: 14, fontWeight:400}}>{`${client.city}, ${client.state} ${client.zip}`}</p>
-				</Address>
-				<Metadata {...this.state} prefix={prefix} hideDueDate={client.hideDueDate} update={this.update}/>
-				<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
-				<button className="add" onClick={this.addItems}>+</button>
-				<Balance {...this.state} update={this.update} />
-			</article>
+			<div id="invoice-wrapper">
+				<Header company={this.state.userInfo.company[0]}/>
+				<article>
+					<Address>
+						<p style={{fontSize: 11}}>Bill To:</p>
+						<p style={{fontSize: 13, fontWeight:600}}>{client.name}</p>
+						<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
+						<p style={{fontSize: 14, fontWeight:400}}>{`${client.city}, ${client.state} ${client.zip}`}</p>
+					</Address>
+					<Metadata {...this.state} prefix={prefix} hideDueDate={client.hideDueDate} update={this.update}/>
+					<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
+					<button className="add" onClick={this.addItems}>+</button>
+					<Balance {...this.state} update={this.update} />
+				</article>
+				<Aside/>
+			</div>
 		)
 	}
 }
 
-export default Article;
+export default Invoice;

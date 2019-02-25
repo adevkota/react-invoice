@@ -3,12 +3,13 @@ import {firebaseLogin, firebaseLogout, isAuthenticated, firebaseAuth, getUserInf
 import './Control.css'
 import { connect } from "react-redux";
 import { loggedIn, loggedOut } from "../store/authentication/actions";
-import { userFetched } from "../store/articles/actions";
+import { userFetched } from "../store/invoice/actions";
+import { getUserDisplayName } from "../store/invoice/reducer";
+import { getIsAuthenticated } from "../store/authentication/reducer";
 class Control extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			authenticated: undefined,
 			email: '',
 			password:'',
 			userInfo: null
@@ -26,18 +27,10 @@ class Control extends Component {
 				getUserInfo(user.uid)
 				.then(doc => {
 					const userInfo = doc.exists? doc.data(): null
-					this.setState( {
-						authenticated: true,
-						userInfo
-					});
 					this.props.loggedIn();
 					this.props.userFetched(userInfo);
 				});
 			} else {
-				this.setState({
-					authenticated: false,
-					userInfo: null
-				});
 				this.props.loggedOut();
 			}
 
@@ -45,9 +38,9 @@ class Control extends Component {
 	}
 	
 	render() {
-		if (this.state.authenticated === true) {
+		if (this.props.isAuthenticated === true) {
 			return this.renderAuthenticated();
-		} else if(this.state.authenticated === false) {
+		} else if(this.props.isAuthenticated === false) {
 			return this.renderNotAuthenticated();
 		} else {
 			// if state.authenticated is not defined, do not rented anything
@@ -59,7 +52,7 @@ class Control extends Component {
 	renderAuthenticated() {
 		return (
 			<div className="Control">
-				<span>  hello {this.state.userInfo && this.state.userInfo.displayName} </span>
+				<span>  hello {this.props.displayName} </span>
 				<button onClick={this.toggleAuth}>Logout</button>
 			</div> 
 		);
@@ -109,7 +102,8 @@ class Control extends Component {
 
 function mapStateToProps(state) {
 	return {
-		...state
+		displayName: getUserDisplayName(state),
+		isAuthenticated: getIsAuthenticated(state)
 	}
 }
 

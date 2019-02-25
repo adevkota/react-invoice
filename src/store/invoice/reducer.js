@@ -15,7 +15,6 @@ const initialState =  {
 	}
 }
 export default function reduce(state = initialState, action) {
-	console.log("reduce user", action);
 	switch(action.type) {
 		case types.USER_FETCHED:
 			return {
@@ -25,4 +24,9 @@ export default function reduce(state = initialState, action) {
 		default:
 			return state;
 	}
+}
+
+export function getUserDisplayName(state) {
+	// state in selectors are global redux states
+	return state.articles.userInfo.displayName;
 }

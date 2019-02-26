@@ -35,9 +35,13 @@ const initialState =  {
 export default function reduce(state = initialState, action) {
 	switch(action.type) {
 		case types.USER_FETCHED:
+			const items = getInvoiceItemsFromUserInfo(action.userInfo);
+			const total = items.reduce((total, item) => total + (item.rate * item.hours), 0);
 			return {
 				...state,
-				items: getInvoiceItemsFromUserInfo(action.userInfo),
+				items,
+				total,
+				amountDue: total - state.amountPaid,
 				userInfo: action.userInfo
 			};
 		default:

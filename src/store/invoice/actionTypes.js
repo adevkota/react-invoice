@@ -1,4 +1,4 @@
 export const USER_FETCHED = 'articles.USER_FETCHED';
-export const ITEM_ADDED = 'articles.ITEM_ADDED';
-export const ITEM_UPDATED = 'articles.ITEM_UPDATED';
-export const ITEM_DELETED = 'articles.ITEM_DELETED';
+export const ITEM_ADD_REQUESTED = 'articles.ITEM_ADD_REQUESTED';
+export const ITEM_UPDATE_REQUESTED = 'articles.ITEM_UPDATE_REQUESTED';
+export const ITEM_DELETE_REQUESTED = 'articles.ITEM_DELETE_REQUESTED';

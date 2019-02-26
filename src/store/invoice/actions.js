@@ -9,9 +9,9 @@ export function userFetched(userInfo) {
 	}
 }
 
-export function itemAdded(item) {
+export function addItem(item) {
 	return dispatch => dispatch({
-		type: types.ITEM_ADDED,
+		type: types.ITEM_ADD_REQUESTED,
 		item
 	});
 }

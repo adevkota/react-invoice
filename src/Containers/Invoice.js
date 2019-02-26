@@ -8,7 +8,7 @@ import Header from '../Components/Header';
 import Aside from '../Components/Aside';
 
 import { connect } from "react-redux";
-import { itemAdded } from "../store/invoice/actions";
+import { addItem } from "../store/invoice/actions";
 import { getInvoiceProjection } from "../store/invoice/reducer";
 
 class Invoice extends Component {
@@ -173,7 +173,6 @@ class Invoice extends Component {
 	render() {
 		const client = this.props.client;
 		let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
-
 		return (
 			<div id="invoice-wrapper">
 				<Header company={this.props.company}/>
@@ -186,7 +185,15 @@ class Invoice extends Component {
 							{`${client.city}, ${client.state} ${client.zip}`}
 						</p>
 					</Address>
-					<Metadata {...this.state} prefix={prefix} hideDueDate={client.hideDueDate} update={this.update}/>
+					<Metadata
+						invoiceNum={this.props.invoiceNum}
+						invoiceDate={this.props.invoiceDate}
+						amountDue={this.props.amountDue}
+						dueDate={this.props.dueDate}
+						prefix={prefix} 
+						hideDueDate={client.hideDueDate} 
+						update={this.update}
+					/>
 					<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
 					<button className="add" onClick={this.addItems}>+</button>
 					<Balance {...this.state} update={this.update} />
@@ -208,8 +215,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		itemAdded: (item) => {
-			dispatch(itemAdded(item))
+		addItem: (item) => {
+			dispatch(addItem(item))
 		}
 	}
 }

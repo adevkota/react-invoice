@@ -33,16 +33,29 @@ const initialState =  {
 	}
 }
 export default function reduce(state = initialState, action) {
+	let total, items;
 	switch(action.type) {
 		case types.USER_FETCHED:
-			const items = getInvoiceItemsFromUserInfo(action.userInfo);
-			const total = items.reduce((total, item) => total + (item.rate * item.hours), 0);
+			items = getInvoiceItemsFromUserInfo(action.userInfo);
+			total = getTotalFromItems(items);
 			return {
 				...state,
 				items,
 				total,
 				amountDue: total - state.amountPaid,
 				userInfo: action.userInfo
+			};
+		case types.ITEM_ADD_REQUESTED:
+			items = [
+				...state.items,
+				...getInvoiceItemsFromUserInfo(state.userInfo)
+			];
+			total = getTotalFromItems(items);
+			return {
+				...state,
+				items,
+				total,
+				amountDue: total - state.amountPaid
 			};
 		default:
 			return state;
@@ -112,4 +125,8 @@ function getInvoiceItemsFromUserInfo(userInfo) {
 	};
 
 	return consultants ? mapper['not-empty'](consultants) : mapper['empty'](consultants);
+}
+
+function getTotalFromItems(items) {
+	return items.reduce((total, item) => total + (item.rate * item.hours), 0);
 }

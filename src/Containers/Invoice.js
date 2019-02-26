@@ -31,23 +31,11 @@ class Invoice extends Component {
 		}
 
 		this.update = this.update.bind(this);
-		this.addItems = this.addItems.bind(this);
 		this.updateItems = this.updateItems.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
 		this.getInvoiceItemsFromConsultants = this.getInvoiceItemsFromConsultants.bind(this);
 		this.updatedTotals = this.updatedTotals.bind(this);
 		this.getEndClient = this.getEndClient.bind(this);
-	}
-
-	addItems() {
-		const items = [
-			...this.state.items, 
-			...this.getInvoiceItemsFromConsultants(this.state.userInfo.clients[0].consultants)
-		];
-		this.setState({
-			items,
-			...this.updatedTotals(items, this.state.amountPaid)
-		})
 	}
 
 	componentDidMount() {
@@ -194,8 +182,8 @@ class Invoice extends Component {
 						hideDueDate={client.hideDueDate} 
 						update={this.update}
 					/>
-					<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
-					<button className="add" onClick={this.addItems}>+</button>
+					<InvoiceItems items={this.props.items} update={this.updateItems} delete={this.deleteItem}/>
+					<button className="add" onClick={this.props.addItem}>+</button>
 					<Balance 
 						total={this.props.total}
 						amountPaid={this.props.amountPaid}

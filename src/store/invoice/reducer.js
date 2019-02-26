@@ -11,7 +11,25 @@ const initialState =  {
 	],
 	amountPaid: 0,
 	userInfo: {
-		
+		company: [
+			{
+				name: 'Company Name',
+				address1: 'Address line 1',
+				city: 'city',
+				state: 'state',
+				zip: 'zip'
+			}
+		],
+		clients: [{address1: "client street address",
+			city: "city",
+			consultants:[{}],
+			endClients:[{}],
+			hideDueDate: true,
+			name: "client name",
+			state:"state",
+			terms: "",
+			zip:"zip"
+		}]
 	}
 }
 export default function reduce(state = initialState, action) {
@@ -19,6 +37,7 @@ export default function reduce(state = initialState, action) {
 		case types.USER_FETCHED:
 			return {
 				...state,
+				items: getInvoiceItemsFromUserInfo(action.userInfo),
 				userInfo: action.userInfo
 			};
 		default:
@@ -28,5 +47,65 @@ export default function reduce(state = initialState, action) {
 
 export function getUserDisplayName(state) {
 	// state in selectors are global redux states
-	return state.articles.userInfo.displayName;
+	return state.invoice.userInfo.displayName;
+}
+
+export function getInvoiceProjection(state) {
+	const {userInfo, ...rest} = state.invoice;
+	return {
+		...rest,
+		company: getCompanyFromUserInfo(userInfo),
+		client: getClientFromUserInfo(userInfo),
+		endClient: getEndClientFromUserInfo(userInfo)
+	}
+}
+
+function getCompanyFromUserInfo(userInfo) {
+	return userInfo.company && userInfo.company.length ? userInfo.company[0] :{};
+}
+
+function getClientFromUserInfo(userInfo) {
+	const clients = userInfo.clients;
+	const mapper = {
+		"empty": () => ({}),
+		"not-empty": (clients) => {
+			const {consultants, endClients, ...client } = clients[0];
+			return client;
+		}
+	}
+	return clients && !!clients.length ? mapper["not-empty"](clients): mapper["empty"](); 
+}
+function getEndClientFromUserInfo(userInfo) {
+	const clients = userInfo.clients;
+	const mapper = {
+		"empty": () => ({}),
+		"not-empty": (clients) => {
+			const { endClients } = clients[0];
+			return  endClients && !!endClients.length ? endClients[0]: {};
+		}
+	}
+	return clients && !!clients.length ? mapper["not-empty"](clients): mapper["empty"](); 
+}
+
+function getInvoiceItemsFromUserInfo(userInfo) {
+	const consultants = userInfo.clients[0].consultants;
+	const mapper = {
+		'empty': () => {
+			return [
+				{name: '', weekEnding: '', rate: '', hours: ''}
+			]
+		},
+		'not-empty': (consultants) => {
+			return consultants.map(consultant => {
+				return {
+					name: consultant.name || '',
+					rate: consultant.rate || '',
+					hours: consultant.defaultHours || '',
+					weekEnding: ''
+				};
+			});
+		}
+	};
+
+	return consultants ? mapper['not-empty'](consultants) : mapper['empty'](consultants);
 }

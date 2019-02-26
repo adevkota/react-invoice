@@ -4,9 +4,12 @@ import Balance from '../Components/Balance'
 import InvoiceItems from '../Components/InvoiceItems'
 import Metadata from '../Components/Metadata';
 import {getUserInfo, firebaseAuth} from '../Services/firebase.service';
-
 import Header from '../Components/Header';
 import Aside from '../Components/Aside';
+
+import { connect } from "react-redux";
+import { itemAdded } from "../store/invoice/actions";
+import { getInvoiceProjection } from "../store/invoice/reducer";
 
 class Invoice extends Component {
 	constructor(props) {
@@ -168,18 +171,20 @@ class Invoice extends Component {
 		}
 	}
 	render() {
-		let client = this.state.userInfo.clients[0];
+		const client = this.props.client;
 		let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
 
 		return (
 			<div id="invoice-wrapper">
-				<Header company={this.state.userInfo.company[0]}/>
+				<Header company={this.props.company}/>
 				<article>
 					<Address>
 						<p style={{fontSize: 11}}>Bill To:</p>
 						<p style={{fontSize: 13, fontWeight:600}}>{client.name}</p>
 						<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
-						<p style={{fontSize: 14, fontWeight:400}}>{`${client.city}, ${client.state} ${client.zip}`}</p>
+						<p style={{fontSize: 14, fontWeight:400}}>
+							{`${client.city}, ${client.state} ${client.zip}`}
+						</p>
 					</Address>
 					<Metadata {...this.state} prefix={prefix} hideDueDate={client.hideDueDate} update={this.update}/>
 					<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
@@ -195,4 +200,18 @@ class Invoice extends Component {
 	}
 }
 
-export default Invoice;
+function mapStateToProps(state) {
+	return {
+		...getInvoiceProjection(state)
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		itemAdded: (item) => {
+			dispatch(itemAdded(item))
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Invoice);

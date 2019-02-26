@@ -11,8 +11,7 @@ class Control extends Component {
 		super(props);
 		this.state = {
 			email: '',
-			password:'',
-			userInfo: null
+			password:''
 		};
 		this.toggleAuth = this.toggleAuth.bind(this);
 		this.updateAuthInfo = this.updateAuthInfo.bind(this);

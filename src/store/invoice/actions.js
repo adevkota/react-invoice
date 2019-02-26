@@ -8,3 +8,10 @@ export function userFetched(userInfo) {
 		});
 	}
 }
+
+export function itemAdded(item) {
+	return dispatch => dispatch({
+		type: types.ITEM_ADDED,
+		item
+	});
+}

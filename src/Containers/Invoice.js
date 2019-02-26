@@ -196,7 +196,12 @@ class Invoice extends Component {
 					/>
 					<InvoiceItems items={this.state.items} update={this.updateItems} delete={this.deleteItem}/>
 					<button className="add" onClick={this.addItems}>+</button>
-					<Balance {...this.state} update={this.update} />
+					<Balance 
+						total={this.props.total}
+						amountPaid={this.props.amountPaid}
+						amountDue={this.props.amountDue}
+						update={this.update} 
+					/>
 				</article>
 				<Aside 
 					endClient={this.getEndClient()} 

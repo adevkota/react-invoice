@@ -3,12 +3,11 @@ import Address from '../Components/Address'
 import Balance from '../Components/Balance'
 import InvoiceItems from '../Components/InvoiceItems'
 import Metadata from '../Components/Metadata';
-import {getUserInfo, firebaseAuth} from '../Services/firebase.service';
 import Header from '../Components/Header';
 import Aside from '../Components/Aside';
 
 import { connect } from "react-redux";
-import { addItem } from "../store/invoice/actions";
+import { addItem, updateItem } from "../store/invoice/actions";
 import { getInvoiceProjection } from "../store/invoice/reducer";
 
 class Invoice extends Component {
@@ -31,53 +30,9 @@ class Invoice extends Component {
 		}
 
 		this.update = this.update.bind(this);
-		this.updateItems = this.updateItems.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
 		this.getInvoiceItemsFromConsultants = this.getInvoiceItemsFromConsultants.bind(this);
 		this.updatedTotals = this.updatedTotals.bind(this);
-		this.getEndClient = this.getEndClient.bind(this);
-	}
-
-	componentDidMount() {
-		firebaseAuth().onAuthStateChanged(user => {
-			if(!!user) {
-				getUserInfo(user.uid)
-				.then(doc => {
-					const userInfo = doc.exists? doc.data(): null;
-					const items = this.getInvoiceItemsFromConsultants(userInfo.clients? userInfo.clients[0].consultants : null);
-					const totals = this.updatedTotals(items, this.state.amountPaid);
-					this.setState( {
-						userInfo,
-						items,
-						...totals
-					});
-				});
-			} else {
-				this.setState({
-					userInfo: {
-						clients: [
-							{
-								'address1': 'Vendor address',
-								'name': 'Vendor Name',
-								'city': 'City',
-								'state': 'State',
-								'zip': 'zip',
-								'endClient': [{}]
-
-							}
-						],
-						company: [{
-							name: 'Two Way Binding Inc',
-							address1: 'Address line 1',
-							city: 'city',
-							state: 'state',
-							zip: 'zip'
-						}]
-					}
-				});
-			}
-
-		})
 	}
 
 	deleteItem(index) {
@@ -113,33 +68,6 @@ class Invoice extends Component {
 		};
 
 		return consultants ? mapper['not-empty'](consultants) : mapper['empty'](consultants);
-	}
-
-	getEndClient() {
-		const defaultEndClient = {
-			name: "Client Name",
-			address1: "Client Address 1",
-			city: "City",
-			state: "State",
-			zip: "Zip"
-		}
-		const endClients = this.state.userInfo.clients[0].endClients;
-		return  endClients && endClients.length ? endClients[0] : defaultEndClient;
-	}
-
-	updateItems(key, val, index) {
-		let stateCopy = Object.assign({}, this.state);
-		stateCopy.items = stateCopy.items.slice();
-		stateCopy.items[index] = Object.assign({}, stateCopy.items[index]);
-		stateCopy.items[index][key] = val;
-
-		if(key === "hours" || key === "rate") {
-			stateCopy = {
-				...stateCopy,
-				...this.updatedTotals(stateCopy.items, stateCopy.amountPaid)
-			}
-		}
-		this.setState(stateCopy);
 	}
 
 	updatedTotals(items, amountPaid) {
@@ -182,7 +110,7 @@ class Invoice extends Component {
 						hideDueDate={client.hideDueDate} 
 						update={this.update}
 					/>
-					<InvoiceItems items={this.props.items} update={this.updateItems} delete={this.deleteItem}/>
+					<InvoiceItems items={this.props.items} update={this.props.updateItem} delete={this.deleteItem}/>
 					<button className="add" onClick={this.props.addItem}>+</button>
 					<Balance 
 						total={this.props.total}
@@ -192,7 +120,7 @@ class Invoice extends Component {
 					/>
 				</article>
 				<Aside 
-					endClient={this.getEndClient()} 
+					endClient={this.props.endClient} 
 					terms={client.terms}
 				/>
 			</div>
@@ -210,7 +138,10 @@ function mapDispatchToProps(dispatch) {
 	return {
 		addItem: (item) => {
 			dispatch(addItem(item))
-		}
+		},
+		updateItem: (key, val, index) => {
+			dispatch(updateItem(key, val, index))
+		} 
 	}
 }
 

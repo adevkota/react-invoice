@@ -20,12 +20,19 @@ const initialState =  {
 				zip: 'zip'
 			}
 		],
-		clients: [{address1: "client street address",
+		clients: [{
+			address1: "vendor street address",
 			city: "city",
 			consultants:[{}],
-			endClients:[{}],
+			endClients:[{
+				name: "Client Name",
+				address1: "Client Address 1",
+				city: "City",
+				state: "State",
+				zip: "Zip"
+			}],
 			hideDueDate: true,
-			name: "client name",
+			name: "vendor name",
 			state:"state",
 			terms: "",
 			zip:"zip"
@@ -36,7 +43,7 @@ export default function reduce(state = initialState, action) {
 	let total, items;
 	switch(action.type) {
 		case types.USER_FETCHED:
-			items = getInvoiceItemsFromUserInfo(action.userInfo);
+			items = [...getInvoiceItemsFromUserInfo(action.userInfo)];
 			total = getTotalFromItems(items);
 			return {
 				...state,
@@ -57,6 +64,25 @@ export default function reduce(state = initialState, action) {
 				total,
 				amountDue: total - state.amountPaid
 			};
+		case types.ITEM_UPDATE_REQUESTED:
+			items = state.items.map((item, index) => {
+				if (index !== action.index) {
+					return item;
+				}
+				return {
+					...item,
+					[action.key]: action.val
+				}
+			});
+			total = getTotalFromItems(items);
+			return {
+				...state,
+				items,
+				total,
+				amountDue: total - state.amountPaid
+			};
+
+
 		default:
 			return state;
 	}

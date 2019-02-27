@@ -15,3 +15,12 @@ export function addItem(item) {
 		item
 	});
 }
+
+export function updateItem(key, val, index) {
+	return dispatch => dispatch({
+		type: types.ITEM_UPDATE_REQUESTED,
+		key,
+		val,
+		index
+	})
+}

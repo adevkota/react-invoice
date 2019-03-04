@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
-class Address extends Component{
-	render() {
-		return(
-			<address contentEditable="">
-				{this.props.children}
+import React from 'react';
+const Address = ({children}) => {
+	return(
+		<address contentEditable="">
+			{children}
 
-			</address>
-		)
-	}
+		</address>
+	)
 }
 
 export default Address;

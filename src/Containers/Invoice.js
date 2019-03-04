@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Address from '../Components/Address'
 import Balance from '../Components/Balance'
 import InvoiceItems from '../Components/InvoiceItems'
@@ -10,14 +10,13 @@ import { connect } from "react-redux";
 import { addItem, deleteItem, updateItem, updateMetadata } from "../store/invoice/actions";
 import { getInvoiceProjection } from "../store/invoice/reducer";
 
-class Invoice extends Component {
+const Invoice = (props) => {
+	const client = props.client;
+	let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
 
-	render() {
-		const client = this.props.client;
-		let prefix = !!client.name ? client.name.split(' ').reduce((acc, curVal) => `${acc}${curVal? curVal[0]:''}`, ''): '';
 		return (
 			<div id="invoice-wrapper">
-				<Header company={this.props.company}/>
+				<Header company={props.company}/>
 				<article>
 					<Address>
 						<p style={{fontSize: 11}}>Bill To:</p>
@@ -28,30 +27,30 @@ class Invoice extends Component {
 						</p>
 					</Address>
 					<Metadata
-						invoiceNum={this.props.invoiceNum}
-						invoiceDate={this.props.invoiceDate}
-						amountDue={this.props.amountDue}
-						dueDate={this.props.dueDate}
+						invoiceNum={props.invoiceNum}
+						invoiceDate={props.invoiceDate}
+						amountDue={props.amountDue}
+						dueDate={props.dueDate}
 						prefix={prefix} 
 						hideDueDate={client.hideDueDate} 
-						update={this.props.updateMetadata}
+						update={props.updateMetadata}
 					/>
-					<InvoiceItems items={this.props.items} update={this.props.updateItem} delete={this.props.deleteItem}/>
-					<button className="add" onClick={this.props.addItem}>+</button>
+					<InvoiceItems items={props.items} update={props.updateItem} delete={props.deleteItem}/>
+					<button className="add" onClick={props.addItem}>+</button>
 					<Balance 
-						total={this.props.total}
-						amountPaid={this.props.amountPaid}
-						amountDue={this.props.amountDue}
-						update={this.props.updateMetadata} 
+						total={props.total}
+						amountPaid={props.amountPaid}
+						amountDue={props.amountDue}
+						update={props.updateMetadata} 
 					/>
 				</article>
 				<Aside 
-					endClient={this.props.endClient} 
+					endClient={props.endClient} 
 					terms={client.terms}
 				/>
 			</div>
 		)
-	}
+
 }
 
 function mapStateToProps(state) {

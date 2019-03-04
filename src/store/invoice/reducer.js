@@ -94,6 +94,20 @@ export default function reduce(state = initialState, action) {
 				total,
 				amountDue: total - state.amountPaid
 			}
+		case types.METADATA_UPDATE_REQUESTED:
+			if (action.key === "amountPaid") {
+				return {
+					...state,
+					amountPaid: action.val,
+					amountDue: state.total - action.val
+				}
+			}
+			else {
+				return {
+					...state,
+					[action.key]: action.val
+				}
+			}
 		default:
 			return state;
 	}

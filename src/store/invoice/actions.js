@@ -31,3 +31,11 @@ export function deleteItem(index) {
 		index
 	})
 }
+
+export function updateMetadata(key, val) {
+	return dispatch => dispatch({
+		type: types.METADATA_UPDATE_REQUESTED,
+		key,
+		val
+	})
+}

@@ -51,7 +51,7 @@ class Control extends Component {
 	renderAuthenticated() {
 		return (
 			<div className="Control">
-				<span>  hello {this.props.displayName} </span>
+				<span class="greeting">  Hello {this.props.displayName} </span>
 				<button onClick={this.toggleAuth}>Logout</button>
 			</div> 
 		);
@@ -60,16 +60,17 @@ class Control extends Component {
 	renderNotAuthenticated() {
 		return (
 			<div className="Control">
-				<span>  hello </span>
 				<input
 					name='email'
 					value={this.state.email}
+					placeholder="Email"
 					onChange={(e)=> this.updateAuthInfo(e.target.name, e.target.value)} 
 					/>
 				<input
 					name='password'
 					type='password'
 					value={this.state.password}
+					placeholder="Password"
 					onChange={(e)=> this.updateAuthInfo(e.target.name, e.target.value)} 
 					/>
 				<button onClick={this.toggleAuth}>Login</button>

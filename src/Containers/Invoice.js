@@ -11,57 +11,6 @@ import { addItem, deleteItem, updateItem, updateMetadata } from "../store/invoic
 import { getInvoiceProjection } from "../store/invoice/reducer";
 
 class Invoice extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			invoiceNum: 1,
-			invoiceDate: 'Jan 4, 2015',
-			dueDate: 'Jan 15, 2016',
-			amountDue: 0,
-			total:0,
-			items:[
-				{name: '', weekEnding: '', rate: '', hours: ''}
-			],
-			amountPaid: 0,
-			userInfo: {
-				clients: [{}],
-				company: [{}]
-			}
-		}
-
-		this.getInvoiceItemsFromConsultants = this.getInvoiceItemsFromConsultants.bind(this);
-		this.updatedTotals = this.updatedTotals.bind(this);
-	}
-
-	getInvoiceItemsFromConsultants(consultants) {
-		const mapper = {
-			'empty': () => {
-				return [
-					{name: '', weekEnding: '', rate: '', hours: ''}
-				]
-			},
-			'not-empty': (consultants) => {
-				return consultants.map(consultant => {
-					return {
-						name: consultant.name || '',
-						rate: consultant.rate || '',
-						hours: consultant.defaultHours || '',
-						weekEnding: ''
-					};
-				});
-			}
-		};
-
-		return consultants ? mapper['not-empty'](consultants) : mapper['empty'](consultants);
-	}
-
-	updatedTotals(items, amountPaid) {
-		const total = items.reduce((total, item) => total + (item.rate * item.hours), 0);
-		return {
-			total,
-			amountDue: total - amountPaid
-		}
-	}
 
 	render() {
 		const client = this.props.client;

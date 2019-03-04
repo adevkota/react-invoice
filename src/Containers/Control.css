@@ -1,7 +1,7 @@
 .Control{
 	background: #FFF;
 	border-radius: 1px;
-	padding:20px;
+	padding:20px 0.5in;
 	width: 8.5in;
 	margin: 10px auto;
 	box-sizing: border-box; 
@@ -10,10 +10,14 @@
 .Control input{
 	border: 1px solid #DDD;
 	border-radius: 1px;
-	margin: 0 10px;  
+	margin: 0 20px 0 0;  
 }
 
 .Control button {
 	border-radius: 1px;
 	padding:0 5px;
+}
+
+.Control .greeting{
+	margin-right: 10px;
 }

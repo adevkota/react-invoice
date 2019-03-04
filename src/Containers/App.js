@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Header from '../Components/Header';
-import Article from './Article';
-import Aside from '../Components/Aside';
+import Invoice from './Invoice';
 import Control from './Control';
 
 import {firebaseInit} from '../Services/firebase.service';
@@ -26,11 +24,7 @@ class App extends Component {
 		return (
 			<div>
 				<Control/>
-				<div id="invoice-wrapper">
-					<Header/>
-					<Article />
-					<Aside/>
-				</div>
+				<Invoice/>
 			</div>
 		);
 	}

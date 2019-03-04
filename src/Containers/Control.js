@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {firebaseLogin, firebaseLogout, isAuthenticated, firebaseAuth, getUserInfo} from '../Services/firebase.service';
 import './Control.css'
-
+import { connect } from "react-redux";
+import { loggedIn, loggedOut } from "../store/authentication/actions";
+import { userFetched } from "../store/invoice/actions";
+import { getUserDisplayName } from "../store/invoice/reducer";
+import { getIsAuthenticated } from "../store/authentication/reducer";
 class Control extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			authenticated: undefined,
 			email: '',
-			password:'',
-			userInfo: null
+			password:''
 		};
 		this.toggleAuth = this.toggleAuth.bind(this);
 		this.updateAuthInfo = this.updateAuthInfo.bind(this);
@@ -23,25 +25,21 @@ class Control extends Component {
 			if(!!user) {
 				getUserInfo(user.uid)
 				.then(doc => {
-					this.setState( {
-						authenticated: true,
-						userInfo: doc.exists? doc.data(): null
-					});
+					const userInfo = doc.exists? doc.data(): null
+					this.props.loggedIn();
+					this.props.userFetched(userInfo);
 				});
 			} else {
-				this.setState({
-					authenticated: false,
-					userInfo: null
-				});
+				this.props.loggedOut();
 			}
 
 		})
 	}
 	
 	render() {
-		if (this.state.authenticated === true) {
+		if (this.props.isAuthenticated === true) {
 			return this.renderAuthenticated();
-		} else if(this.state.authenticated === false) {
+		} else if(this.props.isAuthenticated === false) {
 			return this.renderNotAuthenticated();
 		} else {
 			// if state.authenticated is not defined, do not rented anything
@@ -53,7 +51,7 @@ class Control extends Component {
 	renderAuthenticated() {
 		return (
 			<div className="Control">
-				<span>  hello {this.state.userInfo && this.state.userInfo.displayName} </span>
+				<span className="greeting">  Hello {this.props.displayName} </span>
 				<button onClick={this.toggleAuth}>Logout</button>
 			</div> 
 		);
@@ -62,16 +60,17 @@ class Control extends Component {
 	renderNotAuthenticated() {
 		return (
 			<div className="Control">
-				<span>  hello </span>
 				<input
 					name='email'
 					value={this.state.email}
+					placeholder="Email"
 					onChange={(e)=> this.updateAuthInfo(e.target.name, e.target.value)} 
 					/>
 				<input
 					name='password'
 					type='password'
 					value={this.state.password}
+					placeholder="Password"
 					onChange={(e)=> this.updateAuthInfo(e.target.name, e.target.value)} 
 					/>
 				<button onClick={this.toggleAuth}>Login</button>
@@ -100,5 +99,26 @@ class Control extends Component {
 		this.setState({[key]: val});
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		displayName: getUserDisplayName(state),
+		isAuthenticated: getIsAuthenticated(state)
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		loggedIn: () => {
+			dispatch(loggedIn())
+		},
+		loggedOut: () => {
+			dispatch(loggedOut())
+		},
+		userFetched: (userInfo) => {
+			dispatch(userFetched(userInfo))
+		}
+	}
+}
 	
-export default Control;
+export default connect(mapStateToProps, mapDispatchToProps)(Control);

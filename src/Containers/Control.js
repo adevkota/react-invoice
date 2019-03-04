@@ -51,7 +51,7 @@ class Control extends Component {
 	renderAuthenticated() {
 		return (
 			<div className="Control">
-				<span class="greeting">  Hello {this.props.displayName} </span>
+				<span className="greeting">  Hello {this.props.displayName} </span>
 				<button onClick={this.toggleAuth}>Logout</button>
 			</div> 
 		);

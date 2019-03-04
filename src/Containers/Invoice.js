@@ -7,7 +7,7 @@ import Header from '../Components/Header';
 import Aside from '../Components/Aside';
 
 import { connect } from "react-redux";
-import { addItem, updateItem } from "../store/invoice/actions";
+import { addItem, updateItem, deleteItem } from "../store/invoice/actions";
 import { getInvoiceProjection } from "../store/invoice/reducer";
 
 class Invoice extends Component {
@@ -30,22 +30,8 @@ class Invoice extends Component {
 		}
 
 		this.update = this.update.bind(this);
-		this.deleteItem = this.deleteItem.bind(this);
 		this.getInvoiceItemsFromConsultants = this.getInvoiceItemsFromConsultants.bind(this);
 		this.updatedTotals = this.updatedTotals.bind(this);
-	}
-
-	deleteItem(index) {
-		let stateCopy = Object.assign({}, this.state);
-		stateCopy.items = stateCopy.items.slice();
-		stateCopy.items[index] = Object.assign({}, stateCopy.items[index]);
-		stateCopy.items.splice(index, 1)
-
-		stateCopy = {
-			...stateCopy,
-			...this.updatedTotals(stateCopy.items, stateCopy.amountPaid)
-		}
-		this.setState(stateCopy)
 	}
 
 	getInvoiceItemsFromConsultants(consultants) {
@@ -110,7 +96,7 @@ class Invoice extends Component {
 						hideDueDate={client.hideDueDate} 
 						update={this.update}
 					/>
-					<InvoiceItems items={this.props.items} update={this.props.updateItem} delete={this.deleteItem}/>
+					<InvoiceItems items={this.props.items} update={this.props.updateItem} delete={this.props.deleteItem}/>
 					<button className="add" onClick={this.props.addItem}>+</button>
 					<Balance 
 						total={this.props.total}
@@ -141,7 +127,10 @@ function mapDispatchToProps(dispatch) {
 		},
 		updateItem: (key, val, index) => {
 			dispatch(updateItem(key, val, index))
-		} 
+		},
+		deleteItem: (index) => {
+			dispatch(deleteItem(index))
+		}
 	}
 }
 

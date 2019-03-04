@@ -24,3 +24,10 @@ export function updateItem(key, val, index) {
 		index
 	})
 }
+
+export function deleteItem(index) {
+	return dispatch => dispatch({
+		type: types.ITEM_DELETE_REQUESTED,
+		index
+	})
+}

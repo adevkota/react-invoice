@@ -82,7 +82,18 @@ export default function reduce(state = initialState, action) {
 				amountDue: total - state.amountPaid
 			};
 
-
+		case types.ITEM_DELETE_REQUESTED:
+			items = [
+				...state.items.slice(0, action.index),
+				...state.items.slice(action.index+1)
+			];
+			total = getTotalFromItems(items);
+			return {
+				...state,
+				items,
+				total,
+				amountDue: total - state.amountPaid
+			}
 		default:
 			return state;
 	}

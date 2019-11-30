@@ -1,0 +1,16 @@
+.InvoiceHeader {
+	margin-bottom: 48px;
+
+}
+.InvoiceHeader h1{
+	background: #000;
+	border-radius: 0.25em;
+	color: #FFF;
+	margin-bottom: 16px;
+	padding: 0.5em 0;
+}
+
+.InvoiceHeader Address {
+	margin-bottom: 16px;
+
+}

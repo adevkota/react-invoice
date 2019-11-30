@@ -50,7 +50,7 @@ class Control extends Component {
 	
 	renderAuthenticated() {
 		return (
-			<div className={styles.Control}>
+			<div className={styles.Control + ' d-screen-only'}>
 				<span className={styles.greeting}>  Hello {this.props.displayName} </span>
 				<button onClick={this.toggleAuth}>Logout</button>
 			</div> 
@@ -59,7 +59,7 @@ class Control extends Component {
 	
 	renderNotAuthenticated() {
 		return (
-			<div className={styles.Control}>
+			<div className={styles.Control  + ' d-screen-only'}>
 				<input
 					name='email'
 					value={this.state.email}
@@ -80,7 +80,7 @@ class Control extends Component {
 	
 	renderUnknownAuthentication() {
 		return (
-			<div className={styles.Control}>
+			<div className={styles.Control  + ' d-screen-only'}>
 				<span>  hello </span>
 			</div> 
 		)

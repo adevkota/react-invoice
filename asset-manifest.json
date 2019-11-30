@@ -1,17 +1,25 @@
 {
-  "main.css": "/react-invoice/static/css/main.9574036d.chunk.css",
-  "main.js": "/react-invoice/static/js/main.927eea7b.chunk.js",
-  "main.js.map": "/react-invoice/static/js/main.927eea7b.chunk.js.map",
-  "runtime~main.js": "/react-invoice/static/js/runtime~main.9f3023d4.js",
-  "runtime~main.js.map": "/react-invoice/static/js/runtime~main.9f3023d4.js.map",
-  "static/js/2.f776f7a7.chunk.js": "/react-invoice/static/js/2.f776f7a7.chunk.js",
-  "static/js/2.f776f7a7.chunk.js.map": "/react-invoice/static/js/2.f776f7a7.chunk.js.map",
-  "static/js/3.3a24a1ee.chunk.js": "/react-invoice/static/js/3.3a24a1ee.chunk.js",
-  "static/js/3.3a24a1ee.chunk.js.map": "/react-invoice/static/js/3.3a24a1ee.chunk.js.map",
-  "static/js/4.e05acd6e.chunk.js": "/react-invoice/static/js/4.e05acd6e.chunk.js",
-  "static/js/4.e05acd6e.chunk.js.map": "/react-invoice/static/js/4.e05acd6e.chunk.js.map",
-  "index.html": "/react-invoice/index.html",
-  "precache-manifest.5c7649833626f1cb56135cf722c340ae.js": "/react-invoice/precache-manifest.5c7649833626f1cb56135cf722c340ae.js",
-  "service-worker.js": "/react-invoice/service-worker.js",
-  "static/css/main.9574036d.chunk.css.map": "/react-invoice/static/css/main.9574036d.chunk.css.map"
+  "files": {
+    "main.css": "/react-invoice/static/css/main.f3968887.chunk.css",
+    "main.js": "/react-invoice/static/js/main.7cee4d1c.chunk.js",
+    "main.js.map": "/react-invoice/static/js/main.7cee4d1c.chunk.js.map",
+    "runtime-main.js": "/react-invoice/static/js/runtime-main.bd776ec8.js",
+    "runtime-main.js.map": "/react-invoice/static/js/runtime-main.bd776ec8.js.map",
+    "static/js/2.b633f8c5.chunk.js": "/react-invoice/static/js/2.b633f8c5.chunk.js",
+    "static/js/2.b633f8c5.chunk.js.map": "/react-invoice/static/js/2.b633f8c5.chunk.js.map",
+    "static/js/3.f077c218.chunk.js": "/react-invoice/static/js/3.f077c218.chunk.js",
+    "static/js/3.f077c218.chunk.js.map": "/react-invoice/static/js/3.f077c218.chunk.js.map",
+    "static/js/4.559d97b7.chunk.js": "/react-invoice/static/js/4.559d97b7.chunk.js",
+    "static/js/4.559d97b7.chunk.js.map": "/react-invoice/static/js/4.559d97b7.chunk.js.map",
+    "index.html": "/react-invoice/index.html",
+    "precache-manifest.19fae2169aefc345e08ede28b1513064.js": "/react-invoice/precache-manifest.19fae2169aefc345e08ede28b1513064.js",
+    "service-worker.js": "/react-invoice/service-worker.js",
+    "static/css/main.f3968887.chunk.css.map": "/react-invoice/static/css/main.f3968887.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bd776ec8.js",
+    "static/js/2.b633f8c5.chunk.js",
+    "static/css/main.f3968887.chunk.css",
+    "static/js/main.7cee4d1c.chunk.js"
+  ]
 }

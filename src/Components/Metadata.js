@@ -30,7 +30,8 @@ const Metadata = (props) => {
     
       <tr>
         <th><span contentEditable="">Invoice Date</span></th>
-        <TD update={props.update} 
+        <TD update={props.update}
+          type={"date"} 
           name="invoiceDate"
           val={props.invoiceDate}></TD>
       </tr>
@@ -40,6 +41,7 @@ const Metadata = (props) => {
           <span contentEditable="">Due Date</span>
         </th>
         <TD style={{fontWeight: 600}}
+          type={"date"} 
           update={props.update}
           name="dueDate"
           val={props.dueDate}></TD>

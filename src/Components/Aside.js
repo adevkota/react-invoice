@@ -1,4 +1,5 @@
 import React from 'react';
+import Address from './Address';
 
 const Aside = ({terms, endClient}) => {
 	return(
@@ -15,9 +16,7 @@ const Aside = ({terms, endClient}) => {
 				<p style={{fontWeight: 600, fontSize:13}}>
 					Services Performed at:
 				</p>
-				<p>{endClient.name}</p>
-				<p>{endClient.address1}</p>
-				<p>{endClient.city}, {endClient.state} {endClient.zip}</p>
+				<Address address={endClient}></Address>
 			</div>
 		</aside>
 	)

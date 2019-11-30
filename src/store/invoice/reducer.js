@@ -2,8 +2,8 @@ import * as types from "./actionTypes";
 
 const initialState =  {
 	invoiceNum: 1,
-	invoiceDate: 'Jan 4, 2015',
-	dueDate: 'Jan 15, 2016',
+	invoiceDate: '2019-11-30',
+	dueDate: '2020-01-30',
 	amountDue: 0,
 	total:0,
 	items:[

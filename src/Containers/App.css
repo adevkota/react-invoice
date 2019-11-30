@@ -71,7 +71,7 @@ td { border-color: #DDD; }
 /* page */
 
 html { font: 16px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
-html { background: #f7fafc; cursor: default; }
+html { background: var(--color-gray-100); cursor: default; }
 
 body { box-sizing: border-box;  }
 /* header */
@@ -170,6 +170,7 @@ tr:hover .cut { opacity: 1; }
 	background: #FFF; 
 	border-radius: 1px; 
 	box-sizing: border-box;
+	box-shadow: 0px 2px 4px 0px var(--color-gray-400);
  }
 
  /* #controls{

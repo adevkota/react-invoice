@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {firebaseLogin, firebaseLogout, isAuthenticated, firebaseAuth, getUserInfo} from '../Services/firebase.service';
-import './Control.css'
+import styles from './Control.module.css';
 import { connect } from "react-redux";
 import { loggedIn, loggedOut } from "../store/authentication/actions";
 import { userFetched } from "../store/invoice/actions";
@@ -50,8 +50,8 @@ class Control extends Component {
 	
 	renderAuthenticated() {
 		return (
-			<div className="Control">
-				<span className="greeting">  Hello {this.props.displayName} </span>
+			<div className={styles.Control}>
+				<span className={styles.greeting}>  Hello {this.props.displayName} </span>
 				<button onClick={this.toggleAuth}>Logout</button>
 			</div> 
 		);
@@ -59,7 +59,7 @@ class Control extends Component {
 	
 	renderNotAuthenticated() {
 		return (
-			<div className="Control">
+			<div className={styles.Control}>
 				<input
 					name='email'
 					value={this.state.email}
@@ -80,7 +80,7 @@ class Control extends Component {
 	
 	renderUnknownAuthentication() {
 		return (
-			<div className="Control">
+			<div className={styles.Control}>
 				<span>  hello </span>
 			</div> 
 		)
@@ -96,6 +96,7 @@ class Control extends Component {
 	}
 	
 	updateAuthInfo(key, val) {
+		console.log(key);
 		this.setState({[key]: val});
 	}
 }

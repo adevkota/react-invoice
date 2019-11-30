@@ -18,13 +18,7 @@ const Invoice = (props) => {
 			<div id="invoice-wrapper">
 				<Header company={props.company}/>
 				<article>
-					<Address>
-						<p style={{fontSize: 11}}>Bill To:</p>
-						<p style={{fontSize: 13, fontWeight:600}}>{client.name}</p>
-						<p style={{fontSize: 14, fontWeight:400}}>{client.address1}</p>
-						<p style={{fontSize: 14, fontWeight:400}}>
-							{`${client.city}, ${client.state} ${client.zip}`}
-						</p>
+					<Address address={props.client}>
 					</Address>
 					<Metadata
 						invoiceNum={props.invoiceNum}

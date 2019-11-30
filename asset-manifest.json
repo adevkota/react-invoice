@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-invoice/static/css/main.f3968887.chunk.css",
+    "main.css": "/react-invoice/static/css/main.f36151b9.chunk.css",
     "main.js": "/react-invoice/static/js/main.7cee4d1c.chunk.js",
     "main.js.map": "/react-invoice/static/js/main.7cee4d1c.chunk.js.map",
     "runtime-main.js": "/react-invoice/static/js/runtime-main.bd776ec8.js",
@@ -12,14 +12,14 @@
     "static/js/4.559d97b7.chunk.js": "/react-invoice/static/js/4.559d97b7.chunk.js",
     "static/js/4.559d97b7.chunk.js.map": "/react-invoice/static/js/4.559d97b7.chunk.js.map",
     "index.html": "/react-invoice/index.html",
-    "precache-manifest.19fae2169aefc345e08ede28b1513064.js": "/react-invoice/precache-manifest.19fae2169aefc345e08ede28b1513064.js",
+    "precache-manifest.d5b2418a24f9d8021f9dc3b0b211d763.js": "/react-invoice/precache-manifest.d5b2418a24f9d8021f9dc3b0b211d763.js",
     "service-worker.js": "/react-invoice/service-worker.js",
-    "static/css/main.f3968887.chunk.css.map": "/react-invoice/static/css/main.f3968887.chunk.css.map"
+    "static/css/main.f36151b9.chunk.css.map": "/react-invoice/static/css/main.f36151b9.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.bd776ec8.js",
     "static/js/2.b633f8c5.chunk.js",
-    "static/css/main.f3968887.chunk.css",
+    "static/css/main.f36151b9.chunk.css",
     "static/js/main.7cee4d1c.chunk.js"
   ]
 }

@@ -12,6 +12,7 @@ const InvoiceItem =({item, index, update, ...props }) => {
 				update={update}
 				name="weekEnding"
 				index={index}
+				type={"date"}
 				val={item.weekEnding}></TD>
 			<TD 
 				update={update}
